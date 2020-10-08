@@ -1,7 +1,8 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-const ngrok = require('ngrok');
+
 const linea = '\n-------------------------------------------------------\n'
+
 var d = new Date();
 
 var app = express();
@@ -9,15 +10,13 @@ var app = express();
 var port = process.env.PORT || 3000;
 var ip = process.env.IP || "127.0.0.1";
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 
-var libNum = 0;
-
-app.post('/', function (req, res) {
+app.post('/echo', function (req, res) {
     if (req.body.queryResult.action == "input.welcome") {
-        
+
         let msj = 
         "¡Hola, soy tu chatBot de la saga de los libros de  Geralt de Rivia! ¿Sobre qué libro quieres conocer?"+
         "  \n1. El último deseo."+
@@ -51,11 +50,4 @@ app.post('/', function (req, res) {
     }
 });
 
-app.listen(port, ip);
-
-(async function () {
-    const url = await ngrok.connect(port);
-    console.log(` ${linea} Servidor corriendo en la URL ${url} `);
-    console.log(` Pegar esta URL en dialogFlow -> Fulfillment -> Webhook -> URL`);
-    console.log(` inicia: ${d} ${linea} `);
-})();
+app.listen(port);
