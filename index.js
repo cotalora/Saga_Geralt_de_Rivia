@@ -13,36 +13,37 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
 
+var libNum = 0;
+
 app.post('/', function (req, res) {
-    if (req.body.queryResult.action == "suma") {
-        let num1 = parseFloat(req.body.queryResult.parameters.num1);
-        let num2 = parseFloat(req.body.queryResult.parameters.num2);
-        let sum = num1 + num2;
-        response = num1 + " + " + num2 + " es " + sum;
+    if (req.body.queryResult.action == "input.welcome") {
+        let msj = 
+        "¡Hola, soy tu chatBot de la saga de los libros de  Geralt de Rivia! ¿Sobre qué libro quieres conocer?"+
+        "  \n1. El último deseo."+
+        "  \n2. La espada del destino."+
+        "  \n3. La sangre de los elfos."+
+        "  \n4. Tiempo de odio."+
+        "  \n5. Bautismo de fuego.";
+        response = msj
         res.json({
             "fulfillmentText": response
         });
-    } else if (req.body.queryResult.action == "restar") {
-        let num1 = parseFloat(req.body.queryResult.parameters.num1);
-        let num2 = parseFloat(req.body.queryResult.parameters.num2);
-        let rest = num1 - num2;
-        response = num1 + " - " + num2 + " es " + rest;
-        res.json({
-            "fulfillmentText": response
-        });
-    } else if (req.body.queryResult.action == "multiplicar") {
-        let num1 = parseFloat(req.body.queryResult.parameters.num1);
-        let num2 = parseFloat(req.body.queryResult.parameters.num2);
-        let mult = num1 * num2;
-        response = num1 + " * " + num2 + " es " + mult;
-        res.json({
-            "fulfillmentText": response
-        });
-    } else if (req.body.queryResult.action == "dividir") {
-        let num1 = parseFloat(req.body.queryResult.parameters.num1);
-        let num2 = parseFloat(req.body.queryResult.parameters.num2);
-        let div = num1 / num2;
-        response = num1 + " / " + num2 + " es " + div;
+    } else if (req.body.queryResult.action == "MenuLibros") {
+        let libNum1 = req.body.queryResult.parameters.lib1;
+        let libNum2 = req.body.queryResult.parameters.lib2;
+        if (libNum2 == "La") {
+            libNum2 = "2";
+            libNum = parseInt(libNum2);
+        } else if (libNum2 == "2") {
+            libNum = parseInt(libNum2);
+            response = "Diga prueba";
+        }
+
+
+        if (req.body.queryResult.action == "libro1" && libNum == 2) {
+            response = "libNum2";
+        }
+        
         res.json({
             "fulfillmentText": response
         });
