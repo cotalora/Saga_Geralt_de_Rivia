@@ -17,6 +17,7 @@ var libNum = 0;
 
 app.post('/', function (req, res) {
     if (req.body.queryResult.action == "input.welcome") {
+        
         let msj = 
         "¡Hola, soy tu chatBot de la saga de los libros de  Geralt de Rivia! ¿Sobre qué libro quieres conocer?"+
         "  \n1. El último deseo."+
